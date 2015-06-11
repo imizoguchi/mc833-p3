@@ -40,9 +40,9 @@ import java.util.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
 
-public class ComputeClient {
+public class ComputeClientInstanceTester extends ComputeClient {
 
-    public static void main(String args[]) {
-        new ComputeClientInstance().run(args);
-    }    
+	void executeClient() throws RemoteException {
+		return;
+	}
 }
