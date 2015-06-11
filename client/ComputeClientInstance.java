@@ -148,7 +148,7 @@ public class ComputeClientInstance {
         }
     }
 
-    MovieListResponse findMoviesWithTitleAndReleaseDate() throws RemoteException {
+    public MovieListResponse findMoviesWithTitleAndReleaseDate() throws RemoteException {
         List<String> projection = new ArrayList<String>();
         projection.add("title");
         projection.add("release_date");
@@ -156,7 +156,7 @@ public class ComputeClientInstance {
         return (MovieListResponse)comp.executeRequest(request);
     }
 
-    MovieListResponse findMoviesWithTitleAndReleaseDateByGenre(String genre) throws RemoteException {
+    public MovieListResponse findMoviesWithTitleAndReleaseDateByGenre(String genre) throws RemoteException {
         List<String> projection = new ArrayList<String>();
         projection.add("title");
         projection.add("release_date");
@@ -165,7 +165,7 @@ public class ComputeClientInstance {
         return (MovieListResponse)comp.executeRequest(request);
     }
 
-    MovieResponse findMovieSynopsis(int id) throws RemoteException {
+    public MovieResponse findMovieSynopsis(int id) throws RemoteException {
         List<String> projection = new ArrayList<String>();
         projection.add("synopsis");
 
@@ -173,25 +173,25 @@ public class ComputeClientInstance {
         return (MovieResponse)comp.executeRequest(request);
     }
 
-    MovieResponse findMovie(int id) throws RemoteException {
+    public MovieResponse findMovie(int id) throws RemoteException {
         List<String> projection = Movie.getFullProjection();
 
         Request request = new MovieRequest(id, projection);
         return (MovieResponse)comp.executeRequest(request);
     }
 
-    MovieListResponse findAllMovies() throws RemoteException {
+    public MovieListResponse findAllMovies() throws RemoteException {
         List<String> projection = Movie.getFullProjection();
         Request request = new MovieListRequest(projection);
         return (MovieListResponse)comp.executeRequest(request);
     }
 
-    RentMovieResponse rentMovie(int id) throws RemoteException {
+    public RentMovieResponse rentMovie(int id) throws RemoteException {
         Request request = new RentMovieRequest(id);
         return (RentMovieResponse)comp.executeRequest(request);
     }
 
-    MovieResponse movieInStock(int id) throws RemoteException {
+    public MovieResponse movieInStock(int id) throws RemoteException {
         List<String> projection = new ArrayList<String>();
         projection.add("inStock");
 

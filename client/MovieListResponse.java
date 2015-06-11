@@ -5,10 +5,9 @@ import model.Movie;
 import java.io.Serializable;
 import java.util.*;
 
-public class MovieListResponse implements Serializable {
+public class MovieListResponse extends Response {
 
     public List<Movie> movieList;
-    public long processingTime;
 
     public MovieListResponse() {
     	this.movieList = new ArrayList<Movie>();

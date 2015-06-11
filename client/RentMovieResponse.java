@@ -4,10 +4,9 @@ import compute.Request;
 import model.Movie;
 import java.io.Serializable;
 
-public class RentMovieResponse implements Serializable {
+public class RentMovieResponse extends Response {
 
     public int response_code;
-    public long processingTime;
 
     public String toString() {
 

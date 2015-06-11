@@ -43,6 +43,12 @@ import java.util.InputMismatchException;
 public class ComputeClient {
 
     public static void main(String args[]) {
-        new ComputeClientInstance().run(args);
+
+		System.out.println(args[1]);
+    	if(args.length > 1 && args[1].equals("-test")) {
+    		System.out.println("Creating Test");
+    		new ComputeClientInstanceTester().run(args);
+    	} else
+        	new ComputeClientInstance().run(args);
     }    
 }
