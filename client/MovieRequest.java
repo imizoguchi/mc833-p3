@@ -6,24 +6,24 @@ import java.io.Serializable;
 import model.Movie;
 import java.util.*;
 
-public class MovieListByGenreRequest implements Request<MovieListResponse>, Serializable {
+public class MovieRequest implements Request<MovieResponse>, Serializable {
 
-    private String genre;
     private List<String> projection;
+    private int id;
 
-    public MovieListByGenreRequest(String genre, List<String> projection) {
-        this.genre = genre;
+    public MovieRequest(int id, List<String> projection) {
+    	this.id = id;
         this.projection = projection;
     }
 
-    public MovieListResponse execute(RentalStore store) {
+    public MovieResponse execute(RentalStore store) {
         
-        MovieListResponse response = new MovieListResponse();
+        MovieResponse response = new MovieResponse();
         
         // start timing
         long t_start = System.nanoTime();
 
-        response.movieList = store.getMovies(this.genre, this.projection);
+        response.movie = store.getMovie(this.id,this.projection);
 
         // stop timing
         long t_end = System.nanoTime();

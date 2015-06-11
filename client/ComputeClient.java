@@ -34,6 +34,7 @@ package client;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import compute.*;
+import model.Movie;
 import java.util.*;
 import java.util.Scanner;
 import java.util.InputMismatchException;
@@ -55,9 +56,8 @@ public class ComputeClient {
                 System.out.println("3) dado o identificador de um filme, retornar a sinopse do filme");
                 System.out.println("4) dado o identificador de um filme, retornar todas as informações deste filme");
                 System.out.println("5) listar todas as informações de todos os filmes");
-                System.out.println("6) alterar o número de exemplares em estoque");
+                System.out.println("6) dado o identificador de um filme, alterar o número de exemplares em estoque");
                 System.out.println("7) dado o identificador de um filme, retornar o número de exemplares em estoque");
-                System.out.println("8) fazer login");
                 System.out.println("9) sair");
 
                 // Le comando
@@ -96,6 +96,61 @@ public class ComputeClient {
                         break;
                     }
 
+                    case 3: {
+                        System.out.println("Digite o id do filme:");
+                        int id = scanner.nextInt();
+
+                        List<String> projection = new ArrayList<String>();
+                        projection.add("synopsis");
+
+                        Request request = new MovieRequest(id, projection);
+                        MovieResponse response = (MovieResponse)comp.executeRequest(request);
+                        System.out.println(response);
+                        break;
+                    }
+
+                    case 4: {
+                        System.out.println("Digite o id do filme:");
+                        int id = scanner.nextInt();
+
+                        List<String> projection = Movie.getFullProjection();
+
+                        Request request = new MovieRequest(id, projection);
+                        MovieResponse response = (MovieResponse)comp.executeRequest(request);
+                        System.out.println(response);
+                        break;
+                    }
+
+                    case 5: {
+                        List<String> projection = Movie.getFullProjection();
+                        Request request = new MovieListRequest(projection);
+                        MovieListResponse response = (MovieListResponse)comp.executeRequest(request);
+                        System.out.println(response);
+                        break;
+                    }
+
+                    case 6: {
+                        System.out.println("Digite o id do filme:");
+                        int id = scanner.nextInt();
+
+                        Request request = new RentMovieRequest(id);
+                        RentMovieResponse response = (RentMovieResponse)comp.executeRequest(request);
+                        System.out.println(response);
+                        break;
+                    }
+
+                    case 7: {
+                        System.out.println("Digite o id do filme:");
+                        int id = scanner.nextInt();
+
+                        List<String> projection = new ArrayList<String>();
+                        projection.add("inStock");
+
+                        Request request = new MovieRequest(id, projection);
+                        MovieResponse response = (MovieResponse)comp.executeRequest(request);
+                        System.out.println("Exemplares em estoque: "+response.movie.inStock);
+                        break;
+                    }
 
                     default: System.exit(0);
                 }

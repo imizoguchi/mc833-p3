@@ -17,30 +17,12 @@ public class MovieListRequest implements Request<MovieListResponse>, Serializabl
     public MovieListResponse execute(RentalStore store) {
         
         MovieListResponse response = new MovieListResponse();
-        response.movieList = new ArrayList<Movie>();
+        
         
         // start timing
         long t_start = System.nanoTime();
 
-        for(Movie m : store.movieList) {
-            Movie movie = new Movie();
-            movie.id = m.id;
-            for(String value : this.projection) {
-                if(value.equals("title")) { 
-                    movie.title = m.title;
-                } else if(value.equals("synopsis")) {
-                    movie.synopsis = m.synopsis;
-                } else if(value.equals("release_date")) {
-                    movie.release_date = m.release_date;
-                } else if(value.equals("genre")) {
-                    movie.genre = m.genre;
-                } else if(value.equals("inStock")) {
-                    movie.inStock = m.inStock;
-                }
-            }
-
-            response.movieList.add(movie);
-        }
+        response.movieList = store.getMovies(this.projection);
 
         // stop timing
         long t_end = System.nanoTime();

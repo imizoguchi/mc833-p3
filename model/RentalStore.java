@@ -39,6 +39,81 @@ public class RentalStore {
             }
         }
     }
+    public List<Movie> getMovies(List<String> projection) {
+        return getMovies(null,projection);
+    }
+
+    public List<Movie> getMovies(String genre, List<String> projection) {
+
+        List<Movie> movies = new ArrayList<Movie>();
+
+        for(Movie m : movieList) {
+            if(genre == null || genre.equals(m.genre)) {
+                Movie movie = new Movie();
+                movie.id = m.id;
+                for(String value : projection) {
+                    if(value.equals("title")) { 
+                        movie.title = m.title;
+                    } else if(value.equals("synopsis")) {
+                        movie.synopsis = m.synopsis;
+                    } else if(value.equals("release_date")) {
+                        movie.release_date = m.release_date;
+                    } else if(value.equals("genre")) {
+                        movie.genre = m.genre;
+                    } else if(value.equals("inStock")) {
+                        movie.inStock = m.inStock;
+                    }
+                }
+                movies.add(movie);
+            }
+        }
+
+        return movies;
+    }
+
+    public Movie getMovie(int id, List<String> projection) {
+
+        for(Movie m : movieList) {
+            if(m.id == id) {
+                Movie movie = new Movie();
+                
+                movie.id = m.id;
+
+                for(String value : projection) {
+                    if(value.equals("title")) { 
+                        movie.title = m.title;
+                    } else if(value.equals("synopsis")) {
+                        movie.synopsis = m.synopsis;
+                    } else if(value.equals("release_date")) {
+                        movie.release_date = m.release_date;
+                    } else if(value.equals("genre")) {
+                        movie.genre = m.genre;
+                    } else if(value.equals("inStock")) {
+                        movie.inStock = m.inStock;
+                    }
+                }
+                return movie;
+            }
+        }
+
+        return null;
+    }
+
+    public int rentMovie(int id) {
+
+        for(Movie m : movieList) {
+            if(m.id == id) {
+                if(m.inStock == 0) {
+                    return -1;
+                } else {
+                    m.inStock--;
+                    return m.inStock;
+                }
+            }
+        }
+
+        return -2;
+    }
 
     public static JsonObject convertFileToJSON (String fileName) {
  
