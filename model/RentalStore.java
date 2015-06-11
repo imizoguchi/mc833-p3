@@ -10,7 +10,7 @@ import model.Movie;
 
 public class RentalStore {
 
-    private List<Movie> movieList;
+    public List<Movie> movieList;
 
     public void init(String filename) {
         this.movieList = new ArrayList<Movie>();

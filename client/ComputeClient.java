@@ -35,6 +35,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import compute.*;
 import java.util.*;
+import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class ComputeClient {
     public static void main(String args[]) {
@@ -46,13 +48,58 @@ public class ComputeClient {
             String name = "Compute";
             Registry registry = LocateRegistry.getRegistry(args[0]);
             Compute comp = (Compute) registry.lookup(name);
-            
-            // String s = comp.executeWask("Hi");
-            List<String> projection = new ArrayList<String>();
-            projection.add("name");
-            Request request = new MovieListRequest(projection);
-            MovieListResponse response = (MovieListResponse)comp.executeRequest(request);
-            System.out.println(response.processingTime);
+
+            while(true){
+                System.out.println("1) listar todos os títulos dos filmes e o ano de lançamento");
+                System.out.println("2) listar todos os títulos dos filmes e o ano de lançamento de um gênero determinado");
+                System.out.println("3) dado o identificador de um filme, retornar a sinopse do filme");
+                System.out.println("4) dado o identificador de um filme, retornar todas as informações deste filme");
+                System.out.println("5) listar todas as informações de todos os filmes");
+                System.out.println("6) alterar o número de exemplares em estoque");
+                System.out.println("7) dado o identificador de um filme, retornar o número de exemplares em estoque");
+                System.out.println("8) fazer login");
+                System.out.println("9) sair");
+
+                // Le comando
+                Scanner scanner = new Scanner(System.in);
+                int cmd = 0;
+                try{
+                    System.out.println("Digite o número da operação:");
+                    cmd = scanner.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Digite o número da operação:");
+                }
+
+                // Executa request conforme o comando
+                switch(cmd) {
+                    case 1: {
+                        List<String> projection = new ArrayList<String>();
+                        projection.add("title");
+                        projection.add("release_date");
+                        Request request = new MovieListRequest(projection);
+                        MovieListResponse response = (MovieListResponse)comp.executeRequest(request);
+                        System.out.println(response);
+                        break;
+                    }
+
+                    case 2: {
+                        System.out.println("Digite o gênero:");
+                        String genre = scanner.next();
+
+                        List<String> projection = new ArrayList<String>();
+                        projection.add("title");
+                        projection.add("release_date");
+
+                        Request request = new MovieListByGenreRequest(genre, projection);
+                        MovieListResponse response = (MovieListResponse)comp.executeRequest(request);
+                        System.out.println(response);
+                        break;
+                    }
+
+
+                    default: System.exit(0);
+                }
+            }
         } catch (Exception e) {
             System.err.println("ComputeClient exception:");
             e.printStackTrace();
