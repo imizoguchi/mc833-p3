@@ -122,7 +122,7 @@ public class ComputeClientInstanceTester extends ComputeClientInstance {
 				t2 = res.get(i).totalTime;
 				double tf2 = t2/1000000000.0;
 				
-				double tf3 = tf2-tf1;
+				double tf3 = (tf2-tf1)/2;
 				line = line+tf1+","+tf2+","+tf3+",";
 			}
 
