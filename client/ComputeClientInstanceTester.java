@@ -118,9 +118,12 @@ public class ComputeClientInstanceTester extends ComputeClientInstance {
 			for(List<Response> res : mResponses) {
 				long t1,t2,t3,tm;
 				t1 = res.get(i).processingTime;
+				double tf1 = t1/1000000000.0;
 				t2 = res.get(i).totalTime;
-				t3 = t2-t1;
-				line = line+t1+","+t2+","+t3+",";
+				double tf2 = t2/1000000000.0;
+				
+				double tf3 = tf2-tf1;
+				line = line+tf1+","+tf2+","+tf3+",";
 			}
 
 			System.out.println(line);
